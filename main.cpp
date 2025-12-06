@@ -117,58 +117,26 @@ void printPath(pair<int,int> exitcell,
 // STUDENTS IMPLEMENT DFS HERE
 // Add arguments, return type, and logic
 // ----------------------------------------------------------
- bool dfs(int ent_r, int ent_c, vector<vector<int>> maze, vector<vector<bool>> visited, vector<vector<int>> parent_r, vector<vector<int>> parent_c, int exit_r, int exit_c) {
-    int current_r = ent_r;
-    int current_c = ent_c;
-    vector<int> tmp_r(maze.size(), 0);
-    vector<int> tmp_c(maze[0].size(), 0);
+ bool dfs(int r, int c, vector<vector<int>>& maze, vector<vector<bool>>& visited, vector<vector<int>>& parent_r, vector<vector<int>>& parent_c, int exit_r, int exit_c) {
+    int current_r = r;
+    int current_c = c;
+    visited[r][c] = true;
 
-    if (current_r < maze.size() && current_c < maze[0].size() && current_r == exit_r && current_c == exit_c) {
+    if (current_r == exit_r && current_c == exit_c) {
         return true;
     }
     else {
         for (int i = 0; i < 4; i++) {
-            cout << maze[current_r + dr[i]][current_c + dc[i]] << endl;
-            if (current_r + dr[i] < maze.size() && current_c + dc[i] < maze[0].size() && maze[current_r + dr[i]][current_c + dc[i]] == 0) {
-                tmp_r.push_back(current_r + dr[i]);
-                tmp_r.push_back(current_c + dc[i]);
-
-                visited[current_r + dr[i]][current_c + dc[i]] = true;
-                return dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
+//            cout << maze[current_r + dr[i]][current_c + dc[i]] << endl;
+            if (current_r + dr[i] < maze.size() && current_c + dc[i] < maze[0].size() && current_r + dr[i] >= 0 && current_c + dc[i] >= 0 && maze[current_r + dr[i]][current_c + dc[i]] == 0 && !visited[current_r + dr[i]][current_c + dc[i]]) {
+                parent_r[current_r+dr[i]][current_c+dc[i]] = current_r;
+                parent_c[current_r+dr[i]][current_c+dc[i]] = current_c;
+                bool found = dfs(current_r + dr[i], current_c + dc[i], maze, visited, parent_r, parent_c, exit_r, exit_c);
+                if (found) return true;
             }
+            else continue;
         }
         return false;
-//        if (current_r + 1 < maze.size() && maze[current_r+1][current_c] == 0) {
-//            tmp_r.push_back(current_r);
-//            tmp_r.push_back(current_c);
-//
-//            visited[current_r+1][current_c] = true;
-//            return dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
-//        }
-//        else if (current_r - 1 > 0 && maze[current_r-1][current_c] == 0) {
-//            tmp_r.push_back(current_r);
-//            tmp_r.push_back(current_c);
-//
-//            visited[current_r-1][current_c] = true;
-//            return dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
-//        }
-//        else if (current_c + 1 < maze[0].size() && maze[current_r][current_c+1] == 0) {
-//            tmp_r.push_back(current_r);
-//            tmp_r.push_back(current_c);
-//
-//            visited[current_r][current_c+1] = true;
-//            return dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
-//        }
-//        else if (current_c - 1 > 0 && maze[current_r][current_c-1] == 0) {
-//            tmp_r.push_back(current_r);
-//            tmp_r.push_back(current_c);
-//
-//            visited[current_r][current_c-1] = true;
-//            return dfs(ent_r, ent_c, maze, visited, parent_r, parent_c, exit_r, exit_c);
-//        }
-//        else {
-//            return false;
-//        }
     }
 }
 

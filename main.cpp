@@ -127,7 +127,6 @@ void printPath(pair<int,int> exitcell,
     }
     else {
         for (int i = 0; i < 4; i++) {
-//            cout << maze[current_r + dr[i]][current_c + dc[i]] << endl;
             if (current_r + dr[i] < maze.size() && current_c + dc[i] < maze[0].size() && current_r + dr[i] >= 0 && current_c + dc[i] >= 0 && maze[current_r + dr[i]][current_c + dc[i]] == 0 && !visited[current_r + dr[i]][current_c + dc[i]]) {
                 parent_r[current_r+dr[i]][current_c+dc[i]] = current_r;
                 parent_c[current_r+dr[i]][current_c+dc[i]] = current_c;
